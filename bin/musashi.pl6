@@ -4,7 +4,7 @@ use v6.c;
 
 use Config;
 use IRC::Client;
-use Musashi::Echo;
+use Musashi::Social;
 
 sub MAIN
 {
@@ -33,7 +33,7 @@ sub MAIN
 		:channels($config.get("irc.channels", "#scriptkitties"))
 		:debug($config.get("debug", True))
 		:plugins(
-			Musashi::Echo.new
+			Musashi::Social.new
 		)
 	);
 }
