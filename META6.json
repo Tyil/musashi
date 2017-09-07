@@ -12,7 +12,7 @@
     ],
     "provides": {
         "musashi": "bin/musashi.pl6",
-        "Musashi::Echo", "lib/Musashi/Echo.pm6"
+        "Musashi::Social": "lib/Musashi/Social.pm6"
     },
     "authors": [
         "Patrick Spek <p.spek@tyil.work>"
