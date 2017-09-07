@@ -8,7 +8,8 @@ git clone https://github.com/scriptkitties/musashi.git
 ----
 
 Copy the `musashi.toml` configuration file to any of the accepted configuration
-locations: 
+locations:
+
 - `/etc/musashi.conf`
 - `/usr/local/etc/musashi.conf`
 - `${XDG_CONFIG_HOME}/musashi.conf`
