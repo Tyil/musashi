@@ -1,0 +1,14 @@
+debug = true
+
+[bot]
+nickname = "musashi"
+username = "musashi"
+realname = "Yet another tachikoma AI"
+
+[irc]
+host = "irc.darenet.org"
+port = 6697
+ssl = true
+channels = [
+	"#scriptkitties"
+]

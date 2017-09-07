@@ -1,0 +1,26 @@
+{
+    "perl": "6",
+    "name": "Musashi",
+    "version": "0.0.1",
+    "auth": "github:scriptkitties",
+    "description": "Perl6 based IRC bot for Scriptkitties",
+    "license": "GPL-3.0",
+    "depends": [
+        "Config",
+        "Config::Parser::toml",
+        "IRC::Client"
+    ],
+    "provides": {
+        "musashi": "bin/musashi.pl6",
+        "Musashi::Echo", "lib/Musashi/Echo.pm6"
+    },
+    "authors": [
+        "Patrick Spek <p.spek@tyil.work>"
+    ],
+    "tags": [
+    ],
+    "test-depends": [
+        "Test::META"
+    ],
+    "source-url": "https://github.com/scriptkitties/musashi.git"
+}

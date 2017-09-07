@@ -1,0 +1,27 @@
+= Musashi
+
+== Setting up the bot
+Clone this repositery:
+
+----
+git clone https://github.com/scriptkitties/musashi.git
+----
+
+Copy the `musashi.toml` configuration file to any of the accepted configuration
+locations: 
+- `/etc/musashi.conf`
+- `/usr/local/etc/musashi.conf`
+- `${XDG_CONFIG_HOME}/musashi.conf`
+- `${HOME}/.config/musashi.conf`
+
+These locations are scanned in order, the later ones overriding the keys set in
+files loaded before it.
+
+Finally, run the bot:
+
+----
+perl6 -Ilib bin/musashi.p6
+----
+
+== License
+This software is distributed under the GPLv3.
