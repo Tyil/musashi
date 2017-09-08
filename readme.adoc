@@ -45,6 +45,11 @@ to configure Musashi:
   to `/srv/bots/musashi`.
 - `musashi_perl6`: Path to the Perl 6 interpreter. Defaults to
   `/usr/local/bin/perl6`.
+- `musashi_log`: Directory to store `musashi.log` and `musashi.err` in.
+  Defaults to `$musashi_directory`.
+- `musashi_pidfile`: Path to store a pidfile for Musashi. Defaults to
+  `/var/run/musashi.pid`. If you change this, be sure to change it to the same
+  value in the `musashi.toml` configuration file.
 
 == License
 This software is distributed under the GPLv3.

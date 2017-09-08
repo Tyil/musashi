@@ -1,4 +1,5 @@
 debug = true
+pidfile = /var/run/musashi.pid
 
 [bot]
 nickname = "musashi"
