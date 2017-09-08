@@ -11,10 +11,10 @@ cd musashi
 Copy the `files/musashi.toml` configuration file to any of the accepted
 configuration locations:
 
-- `/etc/musashi.conf`
-- `/usr/local/etc/musashi.conf`
-- `${XDG_CONFIG_HOME}/musashi.conf`
-- `${HOME}/.config/musashi.conf`
+- `/etc/musashi.toml`
+- `/usr/local/etc/musashi.toml`
+- `${XDG_CONFIG_HOME}/musashi.toml`
+- `${HOME}/.config/musashi.toml`
 
 These locations are scanned in order, the later ones overriding the keys set in
 files loaded before it.
