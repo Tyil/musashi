@@ -1,0 +1,27 @@
+#! /bin/sh
+
+# PROVIDE: musashi
+
+#
+# Add the following lines to /etc/rc.conf to enable musashi:
+#
+#musashi_enable="YES"
+
+. /etc/rc.subr
+
+name="musashi"
+rcvar="musashi_enable"
+
+load_rc_config $name
+
+: ${musashi_user:=musashi}
+: ${musashi_enable:=NO}
+: ${musashi_directory:=/srv/bots/musashi}
+: ${musashi_perl6:=/usr/local/bin/perl6}
+
+required_files=${musashi_perl6}
+
+command="${musashi_perl6}"
+command_args="-I${musashi_directory}/lib ${musashi_directory}/bin/musashi.pl6"
+
+run_rc_command "$1"

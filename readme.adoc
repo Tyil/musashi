@@ -8,8 +8,8 @@ git clone https://github.com/scriptkitties/musashi.git
 cd musashi
 ----
 
-Copy the `musashi.toml` configuration file to any of the accepted configuration
-locations:
+Copy the `files/musashi.toml` configuration file to any of the accepted
+configuration locations:
 
 - `/etc/musashi.conf`
 - `/usr/local/etc/musashi.conf`
@@ -30,6 +30,21 @@ Finally, run the bot:
 ----
 perl6 -Ilib bin/musashi.p6
 ----
+
+=== Autostarting
+In order to automatically start the bot, you should use your OS' service
+management system.
+
+==== FreeBSD
+Copy `files/musashi.rc` to `/usr/local/etc/rc.d/musashi` and set
+`musashi_enable="YES"` in your `rc.conf`. You can use the following parameters
+to configure Musashi:
+
+- `musashi_user`: The user Musashi will run as. Defaults to `musashi`.
+- `musashi_directory`: The directory to the local Musashi repository. Defaults
+  to `/srv/bots/musashi`.
+- `musashi_perl6`: Path to the Perl 6 interpreter. Defaults to
+  `/usr/local/bin/perl6`.
 
 == License
 This software is distributed under the GPLv3.
