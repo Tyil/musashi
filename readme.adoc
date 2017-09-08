@@ -5,6 +5,7 @@ Clone this repositery:
 
 ----
 git clone https://github.com/scriptkitties/musashi.git
+cd musashi
 ----
 
 Copy the `musashi.toml` configuration file to any of the accepted configuration
@@ -17,6 +18,12 @@ locations:
 
 These locations are scanned in order, the later ones overriding the keys set in
 files loaded before it.
+
+Next, install all dependencies using `zef`:
+
+----
+zef install --deps-only .
+----
 
 Finally, run the bot:
 
