@@ -16,7 +16,7 @@ class Musashi::Social does IRC::Client::Plugin
 		"\\o"
 	}
 
-	multi method irc-privmsg-channel($e where /^(?:good)?morn(?:ing)?$/)
+	multi method irc-privmsg-channel($e where /^[good]?morn[ing]?$/)
 	{
 		"And a good morning to you too, {$e.nick}"
 	}
