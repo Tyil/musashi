@@ -19,6 +19,7 @@ load_rc_config $name
 : ${musashi_directory:=/srv/bots/musashi}
 : ${musashi_log:=$musashi_directory}
 : ${musashi_perl6:=/usr/local/bin/perl6}
+: ${musashi_pidfile=/var/run/$name.pid}
 
 musashi_flags="-I${musashi_directory}/lib"
 
@@ -26,5 +27,7 @@ required_files=${musashi_perl6}
 
 command="${musashi_perl6}"
 command_args="${musashi_directory}/bin/musashi.pl6 2>> ${musashi_log}/musashi.err >> ${musashi_log}/musashi.log &"
+
+pidfile=${musashi_pidfile}
 
 run_rc_command "$1"

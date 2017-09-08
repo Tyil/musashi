@@ -6,17 +6,24 @@ use Config;
 use IRC::Client;
 use Musashi::Social;
 
+my Str @config-locations = [
+	"/etc/musashi.toml",
+	"/usr/local/etc/musashi.toml",
+	"%*ENV<XDG_CONFIG_HOME>/musashi.toml",
+	"%*ENV<HOME>/.config/musashi.toml",
+];
+
+my Str $pidfile;
+
+signal(SIGINT).tap: {
+	cleanup-pidfile;
+	exit;
+};
+
 sub MAIN
 {
 	# Load config
 	my Config $config = Config.new;
-
-	my Str @config-locations = [
-		"/etc/musashi.toml",
-		"/usr/local/etc/musashi.toml",
-		"%*ENV<XDG_CONFIG_HOME>/musashi.toml",
-		"%*ENV<HOME>/.config/musashi.toml",
-	];
 
 	if (!$config.read(@config-locations, :skip-not-found)) {
 		say "No usable config files supplied in any of the scanned locations:";
@@ -27,6 +34,21 @@ sub MAIN
 
 		die;
 	}
+
+	# Check pidfile
+	$pidfile = $config.get("pidfile", "/var/run/musashi.pid");
+
+	if ($pidfile.IO.e) {
+		my Str $pid = slurp $pidfile;
+
+		say "Musashi is already running as $pid. If this is in error, remove";
+		say "the pidfile at $pidfile";
+
+		die;
+	}
+
+	# Write pidfile
+	spurt $pidfile, $*PID;
 
 	# Start bot
 	.run with IRC::Client.new(
@@ -42,4 +64,12 @@ sub MAIN
 			Musashi::Social.new
 		)
 	);
+
+	# Clean up
+	cleanup-pidfile;
+}
+
+sub cleanup-pidfile()
+{
+	unlink $pidfile;
 }
