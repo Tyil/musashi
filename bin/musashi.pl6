@@ -8,20 +8,24 @@ use Musashi::Social;
 
 sub MAIN
 {
-	say "Starting musashi";
-
 	# Load config
-	my $config = Config.new();
+	my Config $config = Config.new;
 
-	my $config-read = $config.read([
-		"/etc/musashic.toml",
+	my Str @config-locations = [
+		"/etc/musashi.toml",
 		"/usr/local/etc/musashi.toml",
 		"%*ENV<XDG_CONFIG_HOME>/musashi.toml",
-		"%*ENV<HOME>/.config/musashi.toml"
-	], :skip-not-found);
+		"%*ENV<HOME>/.config/musashi.toml",
+	];
 
-	if (!$config-read) {
-		die "No usable config files supplied";
+	if (!$config.read(@config-locations, :skip-not-found)) {
+		say "No usable config files supplied in any of the scanned locations:";
+
+		for @config-locations {
+			say "  $_";
+		}
+
+		die;
 	}
 
 	# Start bot
@@ -30,6 +34,8 @@ sub MAIN
 		:username($config.get("bot.username", "musashi"))
 		:realuser($config.get("bot.realname", "Yet another tachikoma AI"))
 		:host($config.get("irc.host", "irc.darenet.org"))
+		:port($config.get("irc.port", 6667))
+		:ssl($config.get("irc.ssl", False))
 		:channels($config.get("irc.channels", "#scriptkitties"))
 		:debug($config.get("debug", True))
 		:plugins(
