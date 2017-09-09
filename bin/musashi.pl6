@@ -36,19 +36,21 @@ sub MAIN
 	}
 
 	# Check pidfile
-	$pidfile = $config.get("pidfile", "/var/run/musashi.pid");
+	$pidfile = $config.get("pidfile", "/dev/null");
 
-	if ($pidfile.IO.e) {
-		my Str $pid = slurp $pidfile;
+	if ($pidfile ne "/dev/null") {
+		if ($pidfile.IO.e) {
+			my Str $pid = slurp $pidfile;
 
-		say "Musashi is already running as $pid. If this is in error, remove";
-		say "the pidfile at $pidfile";
+			say "Musashi is already running as $pid. If this is in error, remove";
+			say "the pidfile at $pidfile";
 
-		die;
+			die;
+		}
+
+		# Write pidfile
+		spurt $pidfile, $*PID;
 	}
-
-	# Write pidfile
-	spurt $pidfile, $*PID;
 
 	# Start bot
 	.run with IRC::Client.new(
@@ -71,5 +73,9 @@ sub MAIN
 
 sub cleanup-pidfile()
 {
+	if ($pidfile eq "/dev/null") {
+		return;
+	}
+
 	unlink $pidfile;
 }
