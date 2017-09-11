@@ -16,15 +16,16 @@ class Musashi::Github does IRC::Client::Plugin
 
 			post "/" => sub {
 				my %body = from-json(request.body);
-				my $user = "tyil";
-				my $commits = %body<size>;
-				my $branch = "master";
-				my $old = %body<before>;
-				my $new = %body<head>;
+				my $user = %body<pusher><name>;
+				my $commits = %body<commits>.elems;
+				my $repo = %body<repository><name>;
+				my $branch = %body<ref>.subst("refs/head", "");
+				my $old = %body<before>.substr(0, 7);
+				my $new = %body<head>.substr(0, 7);
 
 				$.irc.send(
 					:where("#scriptkitties")
-					:text("$user pushed $commits new commits to $branch ($old..$new)")
+					:text("$user pushed $commits new commits to $repo/$branch ($old..$new)")
 					:notice
 				);
 
