@@ -32,8 +32,8 @@ class Musashi::Github does IRC::Client::Plugin
 			}
 
 			# Set the Bailador config
-			set("host", $!config.get("github.endpoint.host", "0.0.0.0"));
-			set("port", $!config.get("github.endpoint.port", 8000));
+			set("host", $!config.get("github.webhook.host", "0.0.0.0"));
+			set("port", $!config.get("github.webhook.port", 8000));
 
 			# Start up Bailador
 			baile;
