@@ -19,13 +19,18 @@ class Musashi::Github does IRC::Client::Plugin
 				my $user = %body<pusher><name>;
 				my $commits = %body<commits>.elems;
 				my $repo = %body<repository><name>;
-				my $branch = %body<ref>.subst("refs/head", "");
-				my $old = %body<before>.substr(0, 7);
-				my $new = %body<head>.substr(0, 7);
+				my $branch = %body<ref>.Str.subst("refs/heads", "");
+				my $old = %body<before>.Str.substr(0, 7);
+				my $new = %body<after>.Str.substr(0, 7);
+				my $commitString = "commit";
+
+				if ($commits != 1) {
+					$commitString ~= "s";
+				}
 
 				$.irc.send(
 					:where("#scriptkitties")
-					:text("$user pushed $commits new commits to $repo/$branch ($old..$new)")
+					:text("$user pushed $commits new $commitString to {$repo}{$branch} ($old..$new)")
 					:notice
 				);
 
