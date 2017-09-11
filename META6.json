@@ -8,7 +8,8 @@
     "depends": [
         "Config",
         "Config::Parser::toml",
-        "IRC::Client"
+        "IRC::Client",
+        "IRC::Client::Plugin::Github"
     ],
     "provides": {
         "musashi": "bin/musashi.pl6",

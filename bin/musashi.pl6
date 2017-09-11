@@ -4,7 +4,7 @@ use v6.c;
 
 use Config;
 use IRC::Client;
-use Musashi::Github;
+use IRC::Client::Plugin::Github;
 use Musashi::Social;
 
 my Str @config-locations = [
@@ -64,7 +64,7 @@ sub MAIN
 		:channels($config.get("irc.channels", "#scriptkitties"))
 		:debug($config.get("debug", True))
 		:plugins(
-			Musashi::Github.new(config => $config),
+			IRC::Client::Plugin::Github.new(config => $config),
 			Musashi::Social.new
 		)
 	);
