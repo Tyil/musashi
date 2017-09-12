@@ -1,7 +1,7 @@
 = Musashi
 
 == Setting up the bot
-Clone this repositery:
+Clone this repository:
 
 ----
 git clone https://github.com/scriptkitties/musashi.git
