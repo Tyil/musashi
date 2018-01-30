@@ -1,4 +1,4 @@
-FROM scriptkitties/perl6:2017.12
+FROM scriptkitties/perl6:2018.01
 
 RUN apt update
 RUN apt -y install libssl-dev
