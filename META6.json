@@ -8,7 +8,8 @@
     "Config::Parser::toml",
     "IRC::Client",
     "IRC::Client::Plugin::Github",
-    "IRC::Client::Plugin::NickServ"
+    "IRC::Client::Plugin::NickServ",
+    "IRC::Client::Plugin::UrlTitle"
   ],
   "description": "Perl6 based IRC bot for Scriptkitties",
   "license": "GPL-3.0",

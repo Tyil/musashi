@@ -6,6 +6,7 @@ use Config;
 use IRC::Client;
 use IRC::Client::Plugin::Github;
 use IRC::Client::Plugin::NickServ;
+use IRC::Client::Plugin::UrlTitle;
 use Musashi::Social;
 
 my Str @config-locations = [
@@ -67,6 +68,7 @@ sub MAIN
 		:plugins(
 			IRC::Client::Plugin::Github.new(:$config),
 			IRC::Client::Plugin::NickServ.new(:$config),
+			IRC::Client::Plugin::UrlTitle.new,
 			Musashi::Social.new,
 		)
 	);
