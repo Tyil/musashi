@@ -8,6 +8,7 @@
     "Config::Parser::toml",
     "IRC::Client",
     "IRC::Client::Plugin::Github",
+    "IRC::Client::Plugin::Ignore",
     "IRC::Client::Plugin::NickServ",
     "IRC::Client::Plugin::UrlTitle"
   ],

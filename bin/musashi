@@ -5,6 +5,7 @@ use v6.c;
 use Config;
 use IRC::Client;
 use IRC::Client::Plugin::Github;
+use IRC::Client::Plugin::Ignore;
 use IRC::Client::Plugin::NickServ;
 use IRC::Client::Plugin::UrlTitle;
 use Musashi::Social;
@@ -66,6 +67,7 @@ sub MAIN
 		:channels($config.get("irc.channels", "#scriptkitties"))
 		:debug($config.get("debug", True))
 		:plugins(
+			IRC::Client::Plugin::Ignore.new(:$config),
 			IRC::Client::Plugin::Github.new(:$config),
 			IRC::Client::Plugin::NickServ.new(:$config),
 			IRC::Client::Plugin::UrlTitle.new,
