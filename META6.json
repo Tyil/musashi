@@ -17,7 +17,7 @@
   "name": "Musashi",
   "perl": "6",
   "provides": {
-    "Musashi::Social": "lib/Musashi/Social.pm6",
+    "Local::Musashi::Social": "lib/Local/Musashi/Social.pm6",
     "musashi": "bin/musashi.pl6"
   },
   "source-url": "https://github.com/scriptkitties/musashi.git",
