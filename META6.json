@@ -10,7 +10,7 @@
     "IRC::Client::Plugin::Github",
     "IRC::Client::Plugin::Ignore",
     "IRC::Client::Plugin::NickServ",
-    "IRC::Client::Plugin::UrlTitle"
+    "IRC::Client::Plugin::UrlTitle:ver<1.1.2+>"
   ],
   "description": "Perl6 based IRC bot for Scriptkitties",
   "license": "GPL-3.0",
