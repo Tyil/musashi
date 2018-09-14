@@ -13,7 +13,7 @@
     "IRC::Client::Plugin::UrlTitle:ver<1.1.2+>"
   ],
   "description": "Perl6 based IRC bot for Scriptkitties",
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "name": "Musashi",
   "perl": "6",
   "provides": {

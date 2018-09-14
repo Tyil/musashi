@@ -52,4 +52,4 @@ to configure Musashi:
   value in the `musashi.toml` configuration file.
 
 == License
-This software is distributed under the GPLv3.
+This software is distributed under the AGPLv3.
