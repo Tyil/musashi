@@ -7,10 +7,8 @@
     "Config",
     "Config::Parser::toml",
     "IRC::Client",
-    "IRC::Client::Plugin::Github",
     "IRC::Client::Plugin::Ignore",
-    "IRC::Client::Plugin::NickServ",
-    "IRC::Client::Plugin::UrlTitle:ver<1.1.2+>"
+    "IRC::Client::Plugin::NickServ"
   ],
   "description": "Perl6 based IRC bot for Scriptkitties",
   "license": "AGPL-3.0",
@@ -22,7 +20,7 @@
   },
   "source-url": "https://github.com/scriptkitties/musashi.git",
   "tags": [
-    
+    "IRC"
   ],
   "test-depends": [
     "Test::META"

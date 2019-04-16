@@ -1,9 +1,7 @@
-FROM scriptkitties/perl6:2018.01
+FROM rakudo-star:2018.10
 
 RUN apt update
-RUN apt -y install libssl-dev
-
-VOLUME /usr/local/etc
+RUN apt -y install libssl1.0-dev
 
 COPY META6.json .
 COPY bin bin

@@ -4,57 +4,21 @@ use v6.c;
 
 use Config;
 use IRC::Client;
-use IRC::Client::Plugin::Github;
 use IRC::Client::Plugin::Ignore;
 use IRC::Client::Plugin::NickServ;
-use IRC::Client::Plugin::UrlTitle;
-use Musashi::Social;
+use Local::Musashi::Social;
 
-my Str @config-locations = [
-	"/etc/musashi.toml",
-	"/usr/local/etc/musashi.toml",
-	"%*ENV<XDG_CONFIG_HOME>/musashi.toml",
-	"%*ENV<HOME>/.config/musashi.toml",
-];
-
-my Str $pidfile;
-
-signal(SIGINT).tap: {
-	cleanup-pidfile;
-	exit;
-};
-
-sub MAIN
+#| Run the musashi IRC bot.
+sub MAIN ()
 {
+    my IO::Path $config-dir = %*ENV<MUSASHI_CONFIG_DIR>.IO;
+    die "Not a directory: $config-dir.absolute(). Set \$MUSASHI_CONFIG_DIR." unless $config-dir.d;
+
+    my IO::Path $musashi-toml = $config-dir.resolve.add("musashi.toml");
+    die "Missing configuration file: $musashi-toml.absolute()." unless $musashi-toml.f;
+
 	# Load config
-	my Config $config = Config.new;
-
-	if (!$config.read(@config-locations, :skip-not-found)) {
-		say "No usable config files supplied in any of the scanned locations:";
-
-		for @config-locations {
-			say "  $_";
-		}
-
-		die;
-	}
-
-	# Check pidfile
-	$pidfile = $config.get("pidfile", "/dev/null");
-
-	if ($pidfile ne "/dev/null") {
-		if ($pidfile.IO.e) {
-			my Str $pid = slurp $pidfile;
-
-			say "Musashi is already running as $pid. If this is in error, remove";
-			say "the pidfile at $pidfile";
-
-			die;
-		}
-
-		# Write pidfile
-		spurt $pidfile, $*PID;
-	}
+	my Config $config = Config.new.read($musashi-toml.absolute);
 
 	# Start bot
 	.run with IRC::Client.new(
@@ -68,22 +32,8 @@ sub MAIN
 		:debug($config.get("debug", True))
 		:plugins(
 			IRC::Client::Plugin::Ignore.new(:$config),
-			IRC::Client::Plugin::Github.new(:$config),
 			IRC::Client::Plugin::NickServ.new(:$config),
-			IRC::Client::Plugin::UrlTitle.new,
-			Musashi::Social.new,
+			Local::Musashi::Social.new,
 		)
 	);
-
-	# Clean up
-	cleanup-pidfile;
-}
-
-sub cleanup-pidfile()
-{
-	if ($pidfile eq "/dev/null") {
-		return;
-	}
-
-	unlink $pidfile;
 }
