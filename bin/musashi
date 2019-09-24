@@ -3,18 +3,17 @@
 use v6.c;
 
 use Config;
-use IRC::Client;
+use IO::Path::XDG;
 use IRC::Client::Plugin::Ignore;
 use IRC::Client::Plugin::NickServ;
+use IRC::Client;
+
 use Local::Musashi::Social;
 
 #| Run the musashi IRC bot.
 sub MAIN ()
 {
-    my IO::Path $config-dir = %*ENV<MUSASHI_CONFIG_DIR>.IO;
-    die "Not a directory: $config-dir.absolute(). Set \$MUSASHI_CONFIG_DIR." unless $config-dir.d;
-
-    my IO::Path $musashi-toml = $config-dir.resolve.add("musashi.toml");
+    my IO::Path $musashi-toml = xdg-config-home.add("musashi.toml");
     die "Missing configuration file: $musashi-toml.absolute()." unless $musashi-toml.f;
 
 	# Load config

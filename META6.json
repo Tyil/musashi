@@ -6,6 +6,7 @@
   "depends": [
     "Config",
     "Config::Parser::toml",
+    "IO::Path::XDG",
     "IRC::Client",
     "IRC::Client::Plugin::Ignore",
     "IRC::Client::Plugin::NickServ"
