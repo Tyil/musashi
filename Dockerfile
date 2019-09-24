@@ -11,7 +11,7 @@ COPY lib lib
 
 ENV PERL6LIB=/app/lib
 
-RUN zef install --deps-only .
+RUN zef install --deps-only --/test .
 RUN perl6 -c bin/musashi
 
 CMD [ "bin/musashi" ]
