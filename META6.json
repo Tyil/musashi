@@ -9,7 +9,7 @@
     "IO::Path::XDG",
     "IRC::Client",
     "IRC::Client::Plugin::Ignore",
-    "IRC::Client::Plugin::NickServ"
+    "IRC::Client::Plugin::NickServ:ver<0.2.1+>:api<0>"
   ],
   "description": "Perl6 based IRC bot for Scriptkitties",
   "license": "AGPL-3.0",
