@@ -21,7 +21,7 @@ multi method irc-privmsg-channel($e where /^[good]?morn[ing]?$/)
 	"And a good morning to you too, {$e.nick}"
 }
 
-multi method irc-privmsg-channel($e where m:i/black/)
+multi method irc-privmsg-channel($e where /black/)
 {
 	$e.text.subst("black", "african-american")
 }
