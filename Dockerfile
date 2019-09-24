@@ -8,5 +8,6 @@ COPY bin bin
 COPY lib lib
 
 RUN zef install --deps-only .
+RUN perl6 -c -Ilib bin/musashi
 
 CMD perl6 -Ilib bin/musashi
