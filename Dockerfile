@@ -1,7 +1,7 @@
 FROM registry.gitlab.com/tyil/docker-perl6:debian-latest
 
 RUN apt update
-RUN apt -y install libssl1.0-dev
+RUN apt -y install libssl-dev
 
 COPY META6.json .
 COPY bin bin
