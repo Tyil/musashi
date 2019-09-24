@@ -1,4 +1,4 @@
-FROM rakudo-star:2018.10
+FROM registry.gitlab.com/tyil/docker-perl6:debian-latest
 
 RUN apt update
 RUN apt -y install libssl1.0-dev
