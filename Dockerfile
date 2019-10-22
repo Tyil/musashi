@@ -1,14 +1,17 @@
-FROM scriptkitties/perl6:2018.01
+FROM registry.gitlab.com/tyil/docker-perl6:debian-dev-latest
 
 RUN apt update
 RUN apt -y install libssl-dev
 
-VOLUME /usr/local/etc
+WORKDIR /app
 
 COPY META6.json .
 COPY bin bin
 COPY lib lib
 
-RUN zef install --deps-only .
+ENV PERL6LIB=/app/lib
 
-CMD perl6 -Ilib bin/musashi
+RUN zef install --deps-only --/test .
+RUN perl6 -c bin/musashi
+
+CMD [ "bin/musashi" ]

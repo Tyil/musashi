@@ -1,10 +1,9 @@
 debug = true
-pidfile = /var/run/musashi.pid
 
 [bot]
 nickname = "musashi"
 username = "musashi"
-realname = "Yet another tachikoma AI"
+realname = "Yet another Tachikoma AI"
 
 [irc]
 host = "irc.darenet.org"
