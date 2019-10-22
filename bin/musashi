@@ -8,13 +8,11 @@ use IRC::Client::Plugin::Ignore;
 use IRC::Client::Plugin::NickServ;
 use IRC::Client;
 
-use Local::Musashi::Social;
-
 #| Run the musashi IRC bot.
 sub MAIN ()
 {
-    my IO::Path $musashi-toml = xdg-config-home.add("musashi.toml");
-    die "Missing configuration file: $musashi-toml.absolute()." unless $musashi-toml.f;
+	my IO::Path $musashi-toml = xdg-config-home.add("musashi.toml");
+	die "Missing configuration file: $musashi-toml.absolute()." unless $musashi-toml.f;
 
 	# Load config
 	my Config $config = Config.new.read($musashi-toml.absolute);
@@ -33,7 +31,27 @@ sub MAIN ()
 		:plugins(
 			IRC::Client::Plugin::Ignore.new(:$config),
 			IRC::Client::Plugin::NickServ.new(:$config),
-			Local::Musashi::Social.new,
+			class {
+				multi method irc-privmsg-channel($e where /^hi$/)
+				{
+					"Hi {$e.nick}!"
+				}
+
+				multi method irc-privmsg-channel($ where /^o\/$/)
+				{
+					"\\o"
+				}
+
+				multi method irc-privmsg-channel($e where /^[good]?morn[ing]?$/)
+				{
+					"And a good morning to you too, {$e.nick}"
+				}
+
+				multi method irc-privmsg-channel($e where /black/)
+				{
+					$e.text.subst("black", "african-american")
+				}
+			},
 		)
 	);
 }
