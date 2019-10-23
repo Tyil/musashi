@@ -32,3 +32,5 @@ Docker:
   script:
     - docker build -t $CI_REGISTRY_IMAGE:latest .
     - docker push $CI_REGISTRY_IMAGE:latest
+    - docker tag $CI_REGISTRY_IMAGE:latest $CI_REGISTRY_IMAGE:ci-$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY_IMAGE:ci-$CI_COMMIT_SHA
