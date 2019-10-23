@@ -11,20 +11,16 @@
     "IRC::Client::Plugin::Ignore",
     "IRC::Client::Plugin::NickServ:ver<0.2.1+>:api<0>"
   ],
-  "description": "Perl6 based IRC bot for Scriptkitties",
+  "description": "Raku based IRC bot for Scriptkitties",
   "license": "AGPL-3.0",
   "name": "Musashi",
-  "perl": "6",
+  "perl": "6.d",
   "provides": {
-    "Local::Musashi::Social": "lib/Local/Musashi/Social.pm6",
     "musashi": "bin/musashi.pl6"
   },
-  "source-url": "https://github.com/scriptkitties/musashi.git",
+  "source-url": "https://gitlab.com/skitties/musashi",
   "tags": [
     "IRC"
-  ],
-  "test-depends": [
-    "Test::META"
   ],
   "version": "0.0.1"
 }
