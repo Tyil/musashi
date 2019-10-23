@@ -13,14 +13,25 @@ unit module Local::Musashi;
 #| Run the musashi IRC bot.
 sub MAIN () is export
 {
-	my IO::Path $musashi-toml = xdg-config-home.add("musashi.toml");
-	die "Missing configuration file: $musashi-toml.absolute()." unless $musashi-toml.f;
+	my IRC::Client $bot;
+
+	# Play nice with Kubernetes
+	$*ERR.out-buffer = False;
+	$*OUT.out-buffer = False;
+
+	signal(SIGTERM).tap({
+		$bot.quit if $bot;
+	});
 
 	# Load config
+	my IO::Path $musashi-toml = xdg-config-home.add("musashi.toml");
+
+	die "Missing configuration file: $musashi-toml.absolute()." unless $musashi-toml.f;
+
 	my Config $config = Config.new.read($musashi-toml.absolute);
 
-	# Start bot
-	.run with IRC::Client.new(
+	# Initialization
+	$bot .= new(
 		:nick($config.get("bot.nickname", "musashi"))
 		:username($config.get("bot.username", "musashi"))
 		:realuser($config.get("bot.realname", "Yet another tachikoma AI"))
@@ -56,6 +67,9 @@ sub MAIN () is export
 			},
 		)
 	);
+
+	# Start
+	$bot.run;
 }
 
 =begin pod
