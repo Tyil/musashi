@@ -1,12 +1,12 @@
 stages:
-  - release
+  - Release
 
 #
 # Release targets
 #
 
 Distribution:
-  stage: release
+  stage: Release
   only:
     refs:
       - tags
@@ -20,7 +20,7 @@ Distribution:
       - .
 
 Docker:
-  stage: release
+  stage: Release
   only:
     refs:
       - master

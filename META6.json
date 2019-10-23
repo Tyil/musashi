@@ -16,6 +16,7 @@
   "name": "Musashi",
   "perl": "6.d",
   "provides": {
+    "Local::Musashi": "lib/Local/Musashi.pm6",
     "musashi": "bin/musashi.pl6"
   },
   "source-url": "https://gitlab.com/skitties/musashi",
