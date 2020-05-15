@@ -28,15 +28,15 @@ sub MAIN () is export
 	signal(SIGTERM).tap({ .quit with $bot });
 
 	# Load config
-	my IO::Path $musashi-toml = xdg-config-dirs()
+	my IO::Path $config-file = xdg-config-dirs()
 		.map(*.add('musashi.toml'))
 		.grep(*.f)
 		.first
 		;
 
-	die "Missing configuration file: $musashi-toml.absolute()." unless $musashi-toml.f;
+	die "Missing configuration file: $config-file.absolute()." unless $config-file;
 
-	my Config $config = Config.new.read($musashi-toml.absolute);
+	my Config $config = Config.new.read($config-file.absolute);
 
 	# Initialization
 	$bot .= new(
