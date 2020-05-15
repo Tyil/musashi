@@ -4,11 +4,17 @@ use v6.d;
 
 use Config;
 use IO::Path::XDG;
-use IRC::Client::Plugin::Ignore;
-use IRC::Client::Plugin::NickServ;
 use IRC::Client;
+use IRC::Client::Plugin::DiceRolls;
+use IRC::Client::Plugin::NickServ;
+use Log;
+use Log::Level;
 
 unit module Local::Musashi;
+
+# Set up logger
+my $*LOG = (require ::(%*ENV<RAKU_LOG_CLASS> // 'Log::Colored')).new;
+$*LOG.add-output($*ERR, %*ENV<RAKU_LOG_LEVEL> // Log::Level::Info);
 
 #| Run the musashi IRC bot.
 sub MAIN () is export
@@ -19,12 +25,14 @@ sub MAIN () is export
 	$*ERR.out-buffer = False;
 	$*OUT.out-buffer = False;
 
-	signal(SIGTERM).tap({
-		$bot.quit if $bot;
-	});
+	signal(SIGTERM).tap({ .quit with $bot });
 
 	# Load config
-	my IO::Path $musashi-toml = xdg-config-home.add("musashi.toml");
+	my IO::Path $musashi-toml = xdg-config-dirs()
+		.map(*.add('musashi.toml'))
+		.grep(*.f)
+		.first
+		;
 
 	die "Missing configuration file: $musashi-toml.absolute()." unless $musashi-toml.f;
 
@@ -32,9 +40,9 @@ sub MAIN () is export
 
 	# Initialization
 	$bot .= new(
-		:nick($config.get("bot.nickname", "musashi"))
-		:username($config.get("bot.username", "musashi"))
-		:realuser($config.get("bot.realname", "Yet another tachikoma AI"))
+		:nick($config.get("irc.nickname", "musashi"))
+		:username($config.get("irc.username", "musashi"))
+		:realuser($config.get("irc.realname", "Yet another tachikoma AI"))
 		:host($config.get("irc.host", "irc.darenet.org"))
 		:port($config.get("irc.port", 6667))
 		:ssl($config.get("irc.ssl", False))
@@ -42,8 +50,8 @@ sub MAIN () is export
 		:debug($config.get("debug", True))
 		:!autoprefix
 		:plugins(
-			IRC::Client::Plugin::Ignore.new(:$config),
 			IRC::Client::Plugin::NickServ.new(:$config),
+			IRC::Client::Plugin::DiceRolls.new(:$config),
 			class {
 				multi method irc-privmsg-channel($e where /^hi$/)
 				{
