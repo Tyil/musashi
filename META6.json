@@ -11,7 +11,8 @@
     "IRC::Client::Plugin::NickServ:ver<0.3.0+>:api<0>",
     "IRC::Client::Plugin::DiceRolls",
     "Log",
-    "Log::Colored"
+    "Log::Colored",
+    "IO::Glob"
   ],
   "description": "Raku based IRC bot for Scriptkitties",
   "license": "AGPL-3.0",
