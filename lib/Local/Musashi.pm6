@@ -17,8 +17,12 @@ unit module Local::Musashi;
 unit sub MAIN (
 ) is export {
 	# Set up logger
-	my $*LOG = (require ::(%*ENV<RAKU_LOG_CLASS> // 'Log::JSON')).new;
-	$*LOG.add-output($*OUT, %*ENV<RAKU_LOG_LEVEL> // Log::Level::Info);
+	my $*LOG;
+
+	if (%*ENV<RAKU_LOG_CLASS>:exists) {
+		$*LOG = (require ::(%*ENV<RAKU_LOG_CLASS>)).new;
+		$*LOG.add-output($*OUT, %*ENV<RAKU_LOG_LEVEL> // Log::Level::Info);
+	}
 
 	# Create $bot early to use it in traps
 	my IRC::Client $bot;

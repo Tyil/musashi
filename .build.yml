@@ -1,0 +1,24 @@
+image: alpine/latest
+packages:
+  - docker
+secrets:
+  - 4577a183-953e-4612-a48b-e48c4c4763c9
+tasks:
+  - prepare: |
+      sudo mkdir -p /etc/docker
+      cat <<-EOF > /tmp/dockerd.json
+      {
+        "group": "build"
+      }
+      EOF
+      sudo mv /tmp/dockerd.json /etc/docker/daemon.json
+      sudo rc-service docker start
+  - build: |
+      cd raku-local-musashi
+      docker build -t tyil/musashi:ci-$JOB_ID .
+  - publish-quay: |
+      COMMIT="$(git -C raku-local-musashi rev-parse HEAD)"
+      docker tag tyil/musashi:ci-$JOB_ID quay.io/tyil/musashi:git-$COMMIT
+      docker push quay.io/tyil/musashi:git-$COMMIT
+      docker tag tyil/musashi:ci-$JOB_ID quay.io/tyil/musashi:latest
+      docker push quay.io/tyil/musashi:latest
