@@ -46,7 +46,7 @@ unit sub MAIN (
 	my $*CONFIG = Config.new.read($config-file.absolute);
 
 	if (!$*CONFIG.get('irc.opers')) {
-		.warn('No opers defined in irc.opers') with $*LOG;
+		.warning('No opers defined in irc.opers') with $*LOG;
 	}
 
 	# Set up database connection
@@ -69,7 +69,7 @@ unit sub MAIN (
 			$*DB = DB::Pg.new(:$conninfo);
 		}
 		default {
-			.warn("Invalid database driver: $_") with $*LOG;
+			.warning("Invalid database driver") with $*LOG;
 		}
 	}
 
