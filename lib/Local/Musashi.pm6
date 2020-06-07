@@ -52,7 +52,7 @@ unit sub MAIN (
 	# Set up database connection
 	my $*DB;
 
-	given ($*CONFIG.get('database.driver').fc) {
+	given ($*CONFIG.get('database.driver', '').fc) {
 		when 'postgresql' {
 			require DB::Pg;
 
