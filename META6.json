@@ -9,7 +9,7 @@
     "IO::Path::XDG",
     "IRC::Client",
     "IRC::Client::Plugin::NickServ:ver<0.3.0+>:api<0>",
-    "IRC::Client::Plugin::DiceRolls",
+    "IRC::Client::Plugin::DiceRolls:ver<0.2.0>",
     "Log:auth<cpan:TYIL>",
     "IO::Glob"
   ],
