@@ -100,6 +100,11 @@ unit sub MAIN (
 				$e.text.subst("black", "african-american")
 			}
 
+			multi method irc-privmsg-channel($e where /"twitter.com"/)
+			{
+				$e.text.subst("twitter.com", "nitter.net")
+			}
+
 			#| Allow reloading configuration while the bot is
 			#| running.
 			multi method irc-to-me (
