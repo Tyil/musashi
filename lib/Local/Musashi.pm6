@@ -101,7 +101,7 @@ unit sub MAIN (
 				$e.text.subst('black', ircstyle('african-american', :bold), :g)
 			}
 
-			multi method irc-privmsg-channel($e where *.contains('twitter.com'))
+			multi method irc-privmsg-channel($e where *.text.contains('twitter.com'))
 			{
 				$e.text.subst('twitter.com', ircstyle('nitter.net', :bold), :g)
 			}
