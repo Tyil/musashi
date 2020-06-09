@@ -8,6 +8,7 @@ use IO::Path::XDG;
 use IRC::Client;
 use IRC::Client::Plugin::DiceRolls;
 use IRC::Client::Plugin::NickServ;
+use IRC::TextColor;
 use Log;
 use Log::Level;
 
@@ -97,12 +98,12 @@ unit sub MAIN (
 
 			multi method irc-privmsg-channel($e where /black/)
 			{
-				$e.text.subst("black", "african-american")
+				$e.text.subst('black', ircstyle('african-american', :bold), :g)
 			}
 
 			multi method irc-privmsg-channel($e where *.contains('twitter.com'))
 			{
-				$e.text.subst('twitter.com', 'nitter.net', :g)
+				$e.text.subst('twitter.com', ircstyle('nitter.net', :bold), :g)
 			}
 
 			#| Allow reloading configuration while the bot is
